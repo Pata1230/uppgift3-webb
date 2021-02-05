@@ -1,8 +1,16 @@
 #sweepArea{
   display: grid;
-  grid-template-columns: 32px 32px 32px 32px;
+  grid-template-columns: 32px 32px 32px 32px 32px 32px;
+
 }
 .minebutton{
   width: 32px;
   height: 32px;
+}
+.sweepArea{
+  display: flex;
+  justify-content: center;
+}
+button{
+  background-color: gray;
 }
