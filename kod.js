@@ -1,13 +1,19 @@
 
 let mineFeild= [
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
-    [0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
 ];
 
+let rutor = (mineFeild.length*mineFeild.length); 
+
+let antal = 0;
+SetMineFeild()
 function flagcheck() {
     var checkBox = document.getElementById("flag");
     var flagga;
@@ -21,8 +27,8 @@ function flagcheck() {
     }
   console.log(flagga)
     return flagga;
-  }
-flagcheck()
+}
+
 
 
 let mineButtons = document.querySelectorAll(".minebutton");
@@ -32,7 +38,9 @@ mineButtons.forEach((button) => {
     
     button.addEventListener("click", OnButtonclick)
 })
-SetMineFeild();
+
+
+
 function resetgame (){
     SetMineFeild();
     OnButtonclick(e);
@@ -49,23 +57,26 @@ function SetMineFeild(){
             for(let x = 0; x< mineFeild.length; x++){
             if(Math.random() <= 0.2){ //sätt ut bomber
                 mineFeild[x][y]=1;
+                antal = antal+1;
+             
             }
             else{
                 mineFeild[x][y]=0;
             }
          }
         }
+        console.log(antal)
+        return antal
+        
     }
-
-
 
 function ResetMineFeild(){
     for(let x =0; x < (mineFeild.length*mineFeild.length); x++){
         mineButtons[x].disabled = false;
         mineButtons[x].innerHTML = ' ';
-        mineButtons[x].style.backgroundColor = "gray";
+        mineButtons[x].style.backgroundColor = "green";
         neighbouringMines = 0;
-        
+        rutor = (mineFeild.length*mineFeild.length); 
     }
 }
 
@@ -90,6 +101,9 @@ document.getElementById('button').onclick = function() {
 console.table(mineFeild)
 
 function OnButtonclick(e){
+
+    
+    
     let coordiante = e.target.value.split(",");
     console.log(coordiante);
     let x = parseInt(coordiante[0]);
@@ -144,36 +158,58 @@ if(checkBounds(x-1, y+1)){
         neighbouringMines++;
     }
 }
-flagcheck();
-if(flagga == true){
-    e.target.mineButtons.innerHTML = '🚩'
-}
+
+ flagga = flagcheck();
+
+ if(flagga == true){
+    if( e.target.innerHTML ==='🚩' ){
+        e.target.innerHTML = '';
+    }
+    else{
+        e.target.innerHTML = '🚩'; 
+    }
+ }
 else{
     if (mineFeild[y][x] == 1){
+       
         console.log("you hit a mine")
         e.target.style.backgroundColor="#ff0000";
         e.target.disabled = true;
-       
+        alert("YOU LOSE NOOOOOOOB!")
+        
 
     }
     else{
-        if (neighbouringMines > 0){
+        if (neighbouringMines >= 0){
             e.target.innerHTML = neighbouringMines;
-            
-        }
         e.target.disabled = true;
+        e.target.style.backgroundColor="gray"
         console.log("no mine")
+        console.log(rutor)
+        rutor = rutor-1
+        CheckWin();
+        console.log(rutor)
+    }
     }
 }
+
+return rutor;
 }
 function checkBounds(x,y){
     if(y>=0 && y <= mineFeild.length-1){
         if(x>=0 && x <= mineFeild[y].length -1){
         return true;
+        
     }
     }
     return false;
 }
+function CheckWin(){
+    if(rutor ==  antal){
+        alert("YOU WIN PRO!")
+    }
+}
+
 
    
 

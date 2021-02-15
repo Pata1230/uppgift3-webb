@@ -1,16 +1,40 @@
-#sweepArea{
-  display: grid;
-  grid-template-columns: 32px 32px 32px 32px 32px 32px;
 
+body{
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  grid-template-rows: 30% 27% 2%;
+  width: 100vw;
+  height: 100vh;
+}
+#sweepArea{
+  grid-row-start: 2;
+  grid-column-start: 2;
+  display: flex;
+  justify-content: center;
+ 
+  display: grid;
+  grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px;
+  
+  
+
+}
+#extra{
+display:  flex;
+  grid-row-start: 3;
+grid-column-start: 2;
+ 
+  justify-content: center;
+}
+button{
+  border: 1px solid 
 }
 .minebutton{
   width: 32px;
   height: 32px;
 }
-.sweepArea{
-  display: flex;
-  justify-content: center;
-}
+
 button{
-  background-color: gray;
+  background-color: green;
 }
