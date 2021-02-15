@@ -8,9 +8,10 @@ let mineFeild= [
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
+    
 ];
 
-let rutor = (mineFeild.length*mineFeild.length); 
+let rutor = 64; 
 
 let antal = 0;
 SetMineFeild()
@@ -47,7 +48,7 @@ function resetgame (){
 }
 
 function SetMineFeild(){
-    
+    antal = 0;
     for(let y = 0; y<mineFeild.length; y++){                
         for(let x = 0; x< mineFeild.length; x++){
             mineFeild[x][y]=0;
@@ -55,7 +56,7 @@ function SetMineFeild(){
     }
         for(let y = 0; y<mineFeild.length; y++){                
             for(let x = 0; x< mineFeild.length; x++){
-            if(Math.random() <= 0.2){ //sätt ut bomber
+            if(Math.random() <= 0.1){ //sätt ut bomber
                 mineFeild[x][y]=1;
                 antal = antal+1;
              
@@ -76,7 +77,7 @@ function ResetMineFeild(){
         mineButtons[x].innerHTML = ' ';
         mineButtons[x].style.backgroundColor = "green";
         neighbouringMines = 0;
-        rutor = (mineFeild.length*mineFeild.length); 
+     
     }
 }
 
@@ -90,6 +91,7 @@ document.getElementById('button').onclick = function() {
         }
     }
     SetMineFeild()
+    rutor = (mineFeild.length*mineFeild.length);
     console.table(mineFeild)
 
 }
@@ -97,17 +99,8 @@ document.getElementById('button').onclick = function() {
 
 
 
-
 console.table(mineFeild)
-
-function OnButtonclick(e){
-
-    
-    
-    let coordiante = e.target.value.split(",");
-    console.log(coordiante);
-    let x = parseInt(coordiante[0]);
-    let y = parseInt(coordiante[1]);
+function NeighbouringMines(x,y){
     let neighbouringMines= 0;
     //kolla åvan
     //south
@@ -158,9 +151,18 @@ if(checkBounds(x-1, y+1)){
         neighbouringMines++;
     }
 }
+return neighbouringMines
+}
 
- flagga = flagcheck();
-
+function OnButtonclick(e){
+    let coordiante = e.target.value.split(",");
+    console.log(coordiante);
+    let x = parseInt(coordiante[0]);
+    let y = parseInt(coordiante[1]);
+    let neighbouringMines = NeighbouringMines(x,y)
+ 
+   
+    flagga = flagcheck();
  if(flagga == true){
     if( e.target.innerHTML ==='🚩' ){
         e.target.innerHTML = '';
@@ -170,6 +172,8 @@ if(checkBounds(x-1, y+1)){
     }
  }
 else{
+    
+
     if (mineFeild[y][x] == 1){
        
         console.log("you hit a mine")
@@ -179,7 +183,13 @@ else{
         
 
     }
+ 
+    
     else{
+        if(neighbouringMines==0){
+
+            floodFill(x,y)
+       }
         if (neighbouringMines >= 0){
             e.target.innerHTML = neighbouringMines;
         e.target.disabled = true;
@@ -205,11 +215,72 @@ function checkBounds(x,y){
     return false;
 }
 function CheckWin(){
-    if(rutor ==  antal){
+    if(rutor <  antal+1){
         alert("YOU WIN PRO!")
     }
 }
+//Floodfill som kallas första gången, clickar ej på sig själv   
+function floodFill(x,y){
+        mineFeild[y][x] = 2;
+        floodFillHelper(x,y-1)
+        floodFillHelper(x-1,y)
+        floodFillHelper(x,y+1)
+        floodFillHelper(x+1,y)
+    
+  
+}
+
+//Floodfill alla gånger utom första
+function floodFillHelper( x, y){
 
 
    
 
+     //If row is less than 0
+    if(y < 0){
+        //console.log("small row")
+        return;
+    }
+
+    //If column is less than 0
+    if(x < 0){
+        //console.log("small col")
+        return;
+    }
+
+    //If row is greater than mineField length
+    if(y > 7){
+        //console.log("large row")
+        return;
+    }
+
+    //If column is greater than mineField length
+    if(x > 7){
+        //console.log("large col")
+        return;
+    }
+    if(NeighbouringMines(x,y) >0){
+        mineButtons[x + mineFeild.length*y].click()
+        mineFeild[y][x] = 2;
+        return;
+    }
+
+    if(mineFeild[y][x]==1 || mineFeild[y][x]==2){
+        //console.log("filled")
+        return;
+    }
+
+    mineButtons[x + mineFeild.length*y].click()
+    mineFeild[y][x] = 2;
+    floodFillHelper(x+1,y)
+    //console.log("bruh")
+    floodFillHelper(x-1,y)
+    //console.log("woah")
+    floodFillHelper(x,y+1)
+    floodFillHelper(x,y-1)  
+    console.log("finished")  
+   return
+}
+
+
+  
