@@ -40,13 +40,6 @@ mineButtons.forEach((button) => {
     button.addEventListener("click", OnButtonclick)
 })
 
-
-
-function resetgame (){
-    SetMineFeild();
-    OnButtonclick(e);
-}
-
 function SetMineFeild(){
     antal = 0;
     for(let y = 0; y<mineFeild.length; y++){                
@@ -56,7 +49,7 @@ function SetMineFeild(){
     }
         for(let y = 0; y<mineFeild.length; y++){                
             for(let x = 0; x< mineFeild.length; x++){
-            if(Math.random() <= 0.1){ //sätt ut bomber
+            if(Math.random() <= 0.2){ //sätt ut bomber
                 mineFeild[x][y]=1;
                 antal = antal+1;
              
@@ -93,6 +86,8 @@ document.getElementById('button').onclick = function() {
     SetMineFeild()
     rutor = (mineFeild.length*mineFeild.length);
     console.table(mineFeild)
+    outputReset()
+
 
 }
 
@@ -162,9 +157,9 @@ function OnButtonclick(e){
     let neighbouringMines = NeighbouringMines(x,y)
  
    
-    flagga = flagcheck();
+    flagga = flagcheck(); //kollar om du har klickat på flagg knappen eller inte
  if(flagga == true){
-    if( e.target.innerHTML ==='🚩' ){
+    if( e.target.innerHTML ==='🚩' ){ //om den redan är flaggad tas den bort
         e.target.innerHTML = '';
     }
     else{
@@ -174,19 +169,20 @@ function OnButtonclick(e){
 else{
     
 
-    if (mineFeild[y][x] == 1){
+    if (mineFeild[y][x] == 1){ //om du träffar en mina
        
         console.log("you hit a mine")
         e.target.style.backgroundColor="#ff0000";
         e.target.disabled = true;
-        alert("YOU LOSE NOOOOOOOB!")
+        outputLoss()
+       
         
 
     }
  
     
     else{
-        if(neighbouringMines==0){
+        if(neighbouringMines==0){ //om du inte träffar en mina
 
             floodFill(x,y)
        }
@@ -214,9 +210,10 @@ function checkBounds(x,y){
     }
     return false;
 }
-function CheckWin(){
+function CheckWin(){ //om de rutorna som ör kvar är = antalet bomber
     if(rutor <  antal+1){
-        alert("YOU WIN PRO!")
+        outputWin();
+        
     }
 }
 //Floodfill som kallas första gången, clickar ej på sig själv   
@@ -236,27 +233,27 @@ function floodFillHelper( x, y){
 
    
 
-     //If row is less than 0
+     //om rows är mindre än 0
     if(y < 0){
-        //console.log("small row")
+        
         return;
     }
 
-    //If column is less than 0
+    //om column är mindre än 0
     if(x < 0){
-        //console.log("small col")
+      
         return;
     }
 
-    //If row is greater than mineField length
+    //Om rad är längre än minefeild
     if(y > 7){
-        //console.log("large row")
+        
         return;
     }
 
-    //If column is greater than mineField length
+    //Om column är längre än minefeild
     if(x > 7){
-        //console.log("large col")
+     
         return;
     }
     if(NeighbouringMines(x,y) >0){
@@ -266,21 +263,30 @@ function floodFillHelper( x, y){
     }
 
     if(mineFeild[y][x]==1 || mineFeild[y][x]==2){
-        //console.log("filled")
+      
         return;
     }
 
     mineButtons[x + mineFeild.length*y].click()
     mineFeild[y][x] = 2;
     floodFillHelper(x+1,y)
-    //console.log("bruh")
+   
     floodFillHelper(x-1,y)
-    //console.log("woah")
+
     floodFillHelper(x,y+1)
     floodFillHelper(x,y-1)  
     console.log("finished")  
    return
 }
 
+function outputWin(){
+    document.getElementById("output").innerHTML = "You win"
 
+}
+function outputLoss(){
+    document.getElementById("output").innerHTML = "You lose"
+}
+function outputReset(){
+    document.getElementById("output").innerHTML = ""
+}
   

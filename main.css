@@ -1,19 +1,24 @@
 
 body{
+  font-family: 'Pacifico', cursive;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 25% 50% 25%;
-  grid-template-rows: 30% 27% 2%;
+ 
   width: 100vw;
   height: 100vh;
+  
+}
+header{
+  
+  background-color: lightgray;
+display: flex;
+justify-content: space-evenly;
+
+font-size: 5vh;
 }
 #sweepArea{
-  grid-row-start: 2;
-  grid-column-start: 2;
   display: flex;
   justify-content: center;
- 
   display: grid;
   grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px;
   
@@ -22,8 +27,7 @@ body{
 }
 #extra{
 display:  flex;
-  grid-row-start: 3;
-grid-column-start: 2;
+
  
   justify-content: center;
 }
@@ -37,4 +41,10 @@ button{
 
 button{
   background-color: green;
+}
+#output{
+  font-size: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items:  center; 
 }
