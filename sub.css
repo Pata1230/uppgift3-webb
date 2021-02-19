@@ -1,0 +1,29 @@
+body{
+
+    font-family: 'Pacifico', cursive;
+    margin: 0;
+    padding: 0;
+   
+    width: 100vw;
+    height: 100vh;
+    
+  }
+    header{
+  
+    background-color: lightgray;
+  display: flex;
+  justify-content: space-evenly;
+  
+  font-size: 5vh;
+  }
+  .main-grid {
+    display: grid;
+    grid-template-columns: 20% 30% 30% 20;
+    grid-template-rows: 10% 2fr 2fr 2fr 2fr;
+  }
+  .minebild{
+   
+     
+      display: grid;
+      grid-column: 3/4;
+  }

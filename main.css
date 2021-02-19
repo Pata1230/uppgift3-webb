@@ -1,50 +1,43 @@
-
-body{
-  font-family: 'Pacifico', cursive;
+body {
+  font-family: "Pacifico", cursive;
   margin: 0;
   padding: 0;
- 
+
   width: 100vw;
   height: 100vh;
-  
 }
-header{
-  
+header {
   background-color: lightgray;
-display: flex;
-justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 
-font-size: 5vh;
+  font-size: 5vh;
 }
-#sweepArea{
+#sweepArea {
   display: flex;
   justify-content: center;
   display: grid;
   grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px;
-  
-  
-
 }
-#extra{
-display:  flex;
+#extra {
+  display: flex;
 
- 
   justify-content: center;
 }
-button{
-  border: 1px solid 
+button {
+  border: 1px solid;
 }
-.minebutton{
+.minebutton {
   width: 32px;
   height: 32px;
 }
 
-button{
+button {
   background-color: green;
 }
-#output{
+#output {
   font-size: 10vh;
   display: flex;
   justify-content: center;
-  align-items:  center; 
+  align-items: center;
 }
