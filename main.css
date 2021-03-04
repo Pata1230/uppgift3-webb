@@ -1,5 +1,5 @@
 body {
-  font-family: "Pacifico", cursive;
+  font-family: 'Open Sans', sans-serif;
   margin: 0;
   padding: 0;
 
@@ -7,37 +7,49 @@ body {
   height: 100vh;
 }
 header {
-  background-color: lightgray;
+  height: 10%;
+  background-color: rgba(88, 206, 10, 0.89);
   display: flex;
   justify-content: space-evenly;
 
   font-size: 5vh;
 }
 #sweepArea {
+ 
   display: flex;
   justify-content: center;
   display: grid;
-  grid-template-columns: 32px 32px 32px 32px 32px 32px 32px 32px;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px;
 }
 #extra {
   display: flex;
 
   justify-content: center;
+  font-size: 3vh;
 }
 button {
   border: 1px solid;
+  font-size: 3vh;
 }
 .minebutton {
-  width: 32px;
-  height: 32px;
+  font-size: 2vh;
+  width: 50px;
+  height: 50px;
 }
 
 button {
   background-color: green;
+ 
 }
+
 #output {
-  font-size: 10vh;
+  font-size: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media only screen and (max-width: 480px) {
+  header{
+    font-size: 3.5vh;
+  }
 }
