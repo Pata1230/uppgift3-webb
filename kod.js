@@ -8,7 +8,7 @@ let mineFeild= [
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0],
-    
+    [0,0,0,0,0,0,0,0,0],
 ];
 
 let rutor = 64; 
@@ -246,13 +246,13 @@ function floodFillHelper( x, y){
     }
 
     //Om rad är längre än minefeild
-    if(y > 7){
+    if(y > 8){
         
         return;
     }
 
     //Om column är längre än minefeild
-    if(x > 7){
+    if(x > 8){
      
         return;
     }
